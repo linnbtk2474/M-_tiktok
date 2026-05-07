@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tìm link 🌼</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fff6c7, #ffe28a);
+      overflow: hidden;
+      padding: 15px;
+    }
+
+    /* 🌫 bong bóng */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.20);
+      filter: blur(10px);
+      animation: float 18s linear infinite;
+    }
+
+    .bubble:nth-child(1) {
+      width: 180px;
+      height: 180px;
+      left: 5%;
+      top: 90%;
+    }
+
+    .bubble:nth-child(2) {
+      width: 240px;
+      height: 240px;
+      left: 70%;
+      top: 95%;
+    }
+
+    .bubble:nth-child(3) {
+      width: 140px;
+      height: 140px;
+      left: 45%;
+      top: 100%;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-1100px);
+      }
+    }
+
+    /* 📦 box chính */
+    .box {
+      width: 100%;
+      max-width: 360px;
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.20);
+      position: relative;
+      z-index: 2;
+    }
+
+    h2 {
+      color: #d4a000;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    /* 🌼 hoa nền vàng */
+    .flower-bg {
+      position: absolute;
+      font-size: 140px;
+      color: #ffd84d;
+      opacity: 0.12;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid #ffd95a;
+      outline: none;
+      margin-top: 10px;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #ffbf00;
+      transform: scale(1.03);
+      box-shadow: 0 0 10px rgba(255,191,0,0.3);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #ffcc33;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #e6b800;
+      transform: scale(1.03);
+    }
+
+    .msg {
+      margin-top: 10px;
+      color: #d4a000;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+
+<div class="box">
+
+  <div class="flower-bg">🌼</div>
+
+  <h2>Nhập mã tìm link 💛</h2>
+
+  <input id="code" placeholder="Nhập mã...">
+  <button onclick="search()">Tìm ngay</button>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<script>
+async function search() {
+  let code = document.getElementById("code").value.trim();
+
+  let res = await fetch("data.json");
+  let data = await res.json();
+
+  if (data[code]) {
+    window.location.href = data[code];
+  } else {
+    document.getElementById("msg").innerText = "Không tìm thấy mã 😢";
+  }
+}
+</script>
+
+</body>
+</html>
